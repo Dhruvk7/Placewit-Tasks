@@ -1,4 +1,5 @@
 import React from 'react'
+import lichessLogo from '../images/Lichess_logo_2019.png'
 
 function LichessProfileCard({ data }) {
 
@@ -6,7 +7,7 @@ function LichessProfileCard({ data }) {
     return (
         <>
             <div className="card">
-                <img src='https://upload.wikimedia.org/wikipedia/commons/4/47/Lichess_logo_2019.png' className="img-fluid" />
+                <img src={lichessLogo} className="img-fluid" />
                 <div className="card-body">
                     <p className="h4">{data.username}</p>
                     <div className='d-flex justify-content-between'>
