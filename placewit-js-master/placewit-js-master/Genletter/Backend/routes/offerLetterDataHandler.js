@@ -20,10 +20,10 @@ router.post('/', async (req, res) => {
         date: date
     };
     if (!id) {
-        const offerLetter = await OfferLetter.create(obj);
-        if (offerLetter) {
-            console.log(`Data posted with mongoose id = ${offerLetter._id}`);
-        }
+      const offerLetter = await OfferLetter.create(obj); //  new OfferLetter(obj);
+      if (offerLetter) {
+        console.log(`Data posted with mongoose id = ${offerLetter._id}`);
+      }
     }
     else {
         const offerLetter = await OfferLetter.updateOne({ _id: mongoose.Types.ObjectId(id) }, obj);

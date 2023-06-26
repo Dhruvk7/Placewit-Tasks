@@ -13,8 +13,7 @@ let authenticate = async (request, response, next) => {
       response.status(401).json({ msg: "User unauthorized" });
     }
 
-    const verifiedToken = await jwt.verify(token, process.env.JWT_SECRET_KEY);
-    
+    const verifiedToken = await jwt.verify(token, process.env.JWT_SECRET_KEY);   
     request.user = verifiedToken.user;
      console.log(request.user);
     next();

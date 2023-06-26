@@ -98,7 +98,7 @@ function Resume() {
     }
 
     const handleArrayChange = input => e => {
-        // console.log(input + ' ' + e.target.value);
+        console.log(input + ' ' + e.target.value);
         const copy = { ...refs };
         const split = input.split(' ');
         const field = split[0], subfield = split[1], index = split[2];
@@ -119,6 +119,7 @@ function Resume() {
 
     const handleSkillChange = input => e => {
         const copy = { ...refs };
+        console.log(input);
         const split = input.split(' ');
         const field = split[0], subfield = split[1], index = split[2];
         copy[field][subfield][index] = e.target.value;
@@ -126,7 +127,6 @@ function Resume() {
     }
 
     const fieldAddHandler = (name) => {
-        // console.log(name);
         const copy = { ...refs };
         console.log(copy[name]);
         const obj = {};
@@ -215,6 +215,7 @@ function Resume() {
     }
 
     const linkIncreaseHandler = (link) => {
+        console.log(link)
         const split = link.split(' '), name = split[0], index = split[1];
         const copy = { ...refs };
         const obj = {

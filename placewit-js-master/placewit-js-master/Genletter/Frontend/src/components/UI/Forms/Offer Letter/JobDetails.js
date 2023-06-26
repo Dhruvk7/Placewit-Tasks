@@ -16,17 +16,7 @@ const JobDetails = (props) => {
         props.prevStep();
     };
 
-    // const addButton = () => {
-    //     setIndex(index => [...index, index.length + 1]);
-    //     props.increase('educationRef');
-    // }
 
-    // const subtractButton = () => {
-    //     const arr = [...index];
-    //     arr.pop();
-    //     setIndex(arr);
-    //     props.decrease('educationRef');
-    // }
 
     return (
         <Form>
