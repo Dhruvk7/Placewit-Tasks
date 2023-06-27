@@ -39,7 +39,7 @@ let AddEducation = () => {
 
   let submitAddEducation = async(e) => {
     e.preventDefault();
-    await axios.put("/api/profiles/education/",education,{
+    await axios.put("https://devroom77-backend.onrender.com/api/profiles/education/",education,{
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("devroom")}`,

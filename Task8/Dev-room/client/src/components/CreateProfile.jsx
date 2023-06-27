@@ -59,7 +59,7 @@ let CreateProfile = () => {
 
   let submitCreateProfile = async(e) => {
     e.preventDefault();
-    await axios.post("/api/profiles/", profile, {
+    await axios.post("https://devroom77-backend.onrender.com/api/profiles/", profile, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("devroom")}`,

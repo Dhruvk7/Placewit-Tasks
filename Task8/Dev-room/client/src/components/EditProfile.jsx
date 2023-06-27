@@ -58,7 +58,7 @@ let EditProfile = () => {
   };
 
      const getProfile = async (userPassed) => {
-       let { status, data } = await axios.get("/api/profiles/me", {
+       let { status, data } = await axios.get("https://devroom77-backend.onrender.com/api/profiles/me", {
          headers: {
            "Content-Type": "application/json",
            Authorization: `Bearer ${localStorage.getItem("devroom")}`,
@@ -96,7 +96,7 @@ let EditProfile = () => {
 
 
  const getUser = async () => {
-   let { data } = await axios.get("/api/users/me", {
+   let { data } = await axios.get("https://devroom77-backend.onrender.com/api/users/me", {
      headers: {
        "Content-Type": "application/json",
        Authorization: `Bearer ${localStorage.getItem("devroom")}`,
@@ -121,7 +121,7 @@ let EditProfile = () => {
   let submitUpdateProfile = async(event) => {
     event.preventDefault();
 
- await axios.put("/api/profiles/", localProfile, {
+ await axios.put("https://devroom77-backend.onrender.com/api/profiles/", localProfile, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("devroom")}`,

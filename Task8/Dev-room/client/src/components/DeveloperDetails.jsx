@@ -9,12 +9,13 @@ let DeveloperDetails = () => {
   const [selectedProfile, setSelectedProfile] = useState({});
   let [loading, setLoading] = useState(true);
   let [following, setFollowing] = useState(true);
+  let [isUser, setIsUser] = useState(false);
 
 
   let developerId = useParams().developerId;
 
   const fetchDeveloper = async () => {
-    const { data } = await axios.get(`/api/profiles/${developerId}`, {
+    const { data } = await axios.get(`https://devroom77-backend.onrender.com/api/profiles/${developerId}`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -25,23 +26,25 @@ let DeveloperDetails = () => {
 
   const UpdateFollowStatus = async () => {
 
-    const { data: developerData } = await axios.get(`/api/profiles/${developerId}`, {
+    const { data: developerData } = await axios.get(`https://devroom77-backend.onrender.com/api/profiles/${developerId}`, {
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    let { data: profileData } = await axios.get("/api/profiles/me", {
+    let { data: profileData } = await axios.get("https://devroom77-backend.onrender.com/api/profiles/me", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("devroom")}`,
       },
     })
 
-    setFollowing(profileData.profile.following.includes(developerData.profile.user._id));
-
     console.log("profile", profileData)
     console.log("selected profile", developerData);
+
+    setFollowing(profileData.profile.following.includes(developerData.profile.user._id));
+    setIsUser(profileData.profile.user._id === developerData.profile.user._id);
+
 
   }
 
@@ -51,13 +54,13 @@ let DeveloperDetails = () => {
     setFollowing(!following);
 
     //update in backend
-    const { data: developerData } = await axios.get(`/api/profiles/${developerId}`, {
+    const { data: developerData } = await axios.get(`https://devroom77-backend.onrender.com/api/profiles/${developerId}`, {
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    let response = await axios.put(`/api/profiles/follow/${developerData.profile.user._id}`,
+    let response = await axios.put(`https://devroom77-backend.onrender.com/api/profiles/follow/${developerData.profile.user._id}`,
       {},
       {
         headers: {
@@ -111,12 +114,18 @@ let DeveloperDetails = () => {
                       <p className="h6">{selectedProfile.company}</p>
                       <p>{selectedProfile.location}</p>
 
-                      <div onClick={toggleFollowStatus}>
-                        {
-                          following ?
-                            <div className="btn btn-danger">UNFOLLOW</div > : <div className="btn btn-primary">FOLLOW</div >
-                        }
-                      </div>
+                      {
+                        isUser ?
+                          <></>
+                          :
+                          <div onClick={toggleFollowStatus}>
+                            {
+                              following ?
+                                <div className="btn btn-danger">UNFOLLOW</div > : <div className="btn btn-primary">FOLLOW</div >
+                            }
+                          </div>
+                      }
+
                       <div className="d-flex flex-row justify-content-center">
                         <div className="p-2">
                           <ExternalLink

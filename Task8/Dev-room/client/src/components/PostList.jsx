@@ -4,7 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2"
 import Spinner from "./Spinner";
 
-let PostList = ({ following }) => {
+let PostList = () => {
   let [localPost, setLocalPost] = useState({
     text: "",
     image: "",
@@ -51,7 +51,7 @@ let PostList = ({ following }) => {
 
 
   const getUser = async () => {
-    let { data } = await axios.get("/api/users/me", {
+    let { data } = await axios.get("https://devroom77-backend.onrender.com/api/users/me", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("devroom")}`,
@@ -62,7 +62,7 @@ let PostList = ({ following }) => {
   };
 
   const getPosts = async () => {
-    let { data } = await axios.get("/api/posts/", {
+    let { data } = await axios.get("https://devroom77-backend.onrender.com/api/posts/", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("devroom")}`,
@@ -73,31 +73,7 @@ let PostList = ({ following }) => {
     setLoading(false);
   };
 
-  // const getFollowingPosts = async () => {
-  //   let { data: postsData } = await axios.get("/api/posts/", {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${localStorage.getItem("devroom")}`,
-  //     },
-  //   });
-
-  //   let { data: profileData } = await axios.get("/api/profiles/me", {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${localStorage.getItem("devroom")}`,
-  //     },
-  //   });
-
-  //   let followingPeople = profileData.profile.following;
-
-  //   let followingPosts = postsData.posts.filter((post) => followingPeople.includes(post.user._id));
-  //   console.log("Following Posts", followingPosts);
-
-  //   setPosts(followingPosts);
-  //   setLoading(false);
-  // };
-
-
+  
   useEffect(() => {
     if (loggedIn) {
       getUser().then(() => {
@@ -116,7 +92,7 @@ let PostList = ({ following }) => {
   let submitCreatePost = async (e) => {
     e.preventDefault();
     if (localPost.text.trim() !== "") {
-      const { data } = await axios.post("/api/posts/", localPost, {
+      const { data } = await axios.post("https://devroom77-backend.onrender.com/api/posts/", localPost, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("devroom")}`,
@@ -134,7 +110,7 @@ let PostList = ({ following }) => {
   };
 
   let clickDeletePost = async (postId) => {
-    const { data } = await axios.delete(`/api/posts/${postId}`, {
+    const { data } = await axios.delete(`https://devroom77-backend.onrender.com/api/posts/${postId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("devroom")}`,
@@ -149,7 +125,7 @@ let PostList = ({ following }) => {
   };
 
   let clickLikePost = async (postId) => {
-    const { data } = await axios.put(`/api/posts/like/${postId}`, {}, {
+    const { data } = await axios.put(`https://devroom77-backend.onrender.com/api/posts/like/${postId}`, {}, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("devroom")}`,

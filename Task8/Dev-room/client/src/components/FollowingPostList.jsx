@@ -4,7 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2"
 import Spinner from "./Spinner";
 
-let FollowingPostList = ({ following }) => {
+let FollowingPostList = () => {
     let [localPost, setLocalPost] = useState({
         text: "",
         image: "",
@@ -51,7 +51,7 @@ let FollowingPostList = ({ following }) => {
 
 
     const getUser = async () => {
-        let { data } = await axios.get("/api/users/me", {
+        let { data } = await axios.get("https://devroom77-backend.onrender.com/api/users/me", {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("devroom")}`,
@@ -62,21 +62,31 @@ let FollowingPostList = ({ following }) => {
     };
 
     const getFollowingPosts = async () => {
-        let { data: postsData } = await axios.get("/api/posts/", {
+        let { data: postsData } = await axios.get("https://devroom77-backend.onrender.com/api/posts/", {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("devroom")}`,
             },
         });
 
-        let { data: profileData } = await axios.get("/api/profiles/me", {
+        let { data: profileData } = await axios.get("https://devroom77-backend.onrender.com/api/profiles/me", {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("devroom")}`,
             },
         });
 
-        let followingPeople = profileData.profile.following;
+        console.log("postsData", postsData);
+        console.log("profileData", profileData);
+
+        if(profileData.msg == 'No Profile Found'){
+            profileData = {};
+            profileData.profile = {} ;
+            profileData.profile.following = [] ;
+        }
+
+
+        let followingPeople = profileData.profile.following ? profileData.profile.following : [];
 
         let followingPosts = postsData.posts.filter((post) => followingPeople.includes(post.user._id));
         console.log("Following Posts", followingPosts);
@@ -105,7 +115,7 @@ let FollowingPostList = ({ following }) => {
     let submitCreatePost = async (e) => {
         e.preventDefault();
         if (localPost.text.trim() !== "") {
-            const { data } = await axios.post("/api/posts/", localPost, {
+            const { data } = await axios.post("https://devroom77-backend.onrender.com/api/posts/", localPost, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("devroom")}`,
@@ -123,7 +133,7 @@ let FollowingPostList = ({ following }) => {
     };
 
     let clickDeletePost = async (postId) => {
-        const { data } = await axios.delete(`/api/posts/${postId}`, {
+        const { data } = await axios.delete(`https://devroom77-backend.onrender.com/api/posts/${postId}`, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("devroom")}`,
@@ -138,13 +148,13 @@ let FollowingPostList = ({ following }) => {
     };
 
     let clickLikePost = async (postId) => {
-        const { data } = await axios.put(`/api/posts/like/${postId}`, {}, {
+        const { data } = await axios.put(`https://devroom77-backend.onrender.com/api/posts/like/${postId}`, {}, {
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("devroom")}`,
             }
         });
-        getFollowingPosts() ;
+        getFollowingPosts();
     };
 
     return (

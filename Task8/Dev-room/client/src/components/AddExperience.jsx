@@ -37,7 +37,7 @@ let navigate = useNavigate();
 
   let submitAddExperience = async(e) => {
     e.preventDefault();
-    await axios.put("/api/profiles/experience/",experience,{
+    await axios.put("https://devroom77-backend.onrender.com/api/profiles/experience/",experience,{
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("devroom")}`,

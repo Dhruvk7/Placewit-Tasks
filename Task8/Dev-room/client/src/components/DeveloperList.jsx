@@ -10,7 +10,7 @@ let DeveloperList = () => {
   const [user, setUser] = useState({});
 
   const fetchProfiles = async () => {
-    const { data } = await axios.get("/api/profiles/all", {
+    const { data } = await axios.get("https://devroom77-backend.onrender.com/api/profiles/all", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -22,7 +22,7 @@ let DeveloperList = () => {
   }
 
   const getUser = async () => {
-    let { data } = await axios.get("/api/users/me", {
+    let { data } = await axios.get("https://devroom77-backend.onrender.com/api/users/me", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("devroom")}`,
@@ -101,18 +101,8 @@ let DeveloperList = () => {
                                       View Profile
                                     </Link>
 
-                                    {
-                                      profile.followers.includes(user._id) ?
-                                        <div className="btn btn-success me-2">FOLLOWING : Yes</div> :
-                                        <div className="btn btn-danger me-2">FOLLOWING : No</div>
-                                    }
-
-
-                                    {
-                                      profile.following.includes(user._id) ?
-                                        <div className="btn btn-success">FOLLOWER : Yes</div> :
-                                        <div className="btn btn-danger">FOLLOWER: No</div>
-                                    }
+                                    <div className="btn btn-danger me-2">FOLLOWER : {profile.followers.length}</div>
+                                    <div className="btn btn-success">FOLLOWING : {profile.following.length}</div>
 
                                   </div>
 
